@@ -1,23 +1,23 @@
 window.CLINIC_MOCK_DATA = {
   // MOCK DATA: Replace with real content from CMS or backend later.
   doctors: [
+    // {
+    //   name: "Dr.Sanjeev Gandhi",
+    //   specialty: "General Physician",
+    //   image:
+    //     "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=900&q=80",
+    //   bio: "Provides preventive consultation, everyday health guidance, and ongoing wellness planning."
+    // },
     {
-      name: "Dr. Aisha Rahman",
-      specialty: "General Physician",
-      image:
-        "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=900&q=80",
-      bio: "Provides preventive consultation, everyday health guidance, and ongoing wellness planning."
-    },
-    {
-      name: "Dr. Kamal Hossain",
-      specialty: "General Surgeon",
+      name: "Dr.Sanjeev Gandhi ",
+      specialty: "General Physician & Surgeon",
       image:
         "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=900&q=80",
       bio: "Supports surgery planning and recovery with a focus on safety, comfort, and clear communication."
     },
     {
-      name: "Dr. Nabila Ahmed",
-      specialty: "Gynecology / Obstetrics",
+      name: "Dr. Ayushi ",
+      specialty: "Gynecology",
       image:
         "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=900&q=80",
       bio: "Offers compassionate women’s healthcare services, consultation, and supportive care pathways."
