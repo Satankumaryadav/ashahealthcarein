@@ -1,6 +1,6 @@
 // Supabase configuration placeholder - fill before connecting
-const SUPABASE_URL = 'https://aszbnhaqncseochisjct.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_9CkV2PAoG07_Agz7NY6nDA_1zUk8wwC';
+const SUPABASE_URL = '';
+const SUPABASE_PUBLISHABLE_KEY = '';
 
 // Create supabase client when keys are provided
 let supabase = null;
