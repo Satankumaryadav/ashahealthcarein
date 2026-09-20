@@ -1,0 +1,43 @@
+# Netlify build and deployment configuration
+
+# Build settings
+[build]
+  # Plain static site — no build required. If using a bundler, change this.
+  command = "cat > admin-assets/js/supabase-config-client.js <<'SUPACONFIG'\nwindow.SUPABASE_URL='${SUPABASE_URL}';\nwindow.SUPABASE_ANON_KEY='${SUPABASE_ANON_KEY}';\nSUPACONFIG"
+  publish = "."
+
+# Redirect HTTP to HTTPS (optional; Netlify handles this automatically)
+[[redirects]]
+  from = "http://*"
+  to = "https://:splat"
+  status = 301
+  force = true
+
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Content Security Policy — adjust as needed
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://js.pusher.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://cdn.jsdelivr.net https://*.supabase.co https://cdn.example.com"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+    # Enable HSTS (strict transport security)
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+# Cache settings for static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600" # 1 hour
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# Enable Netlify Functions (optional, for future server-side tasks)
+# [functions]
+#   node_bundler = "esbuild"

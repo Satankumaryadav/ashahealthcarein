@@ -1,0 +1,39 @@
+# Asha Healthcare – .gitignore
+
+# Environment variables (set via Netlify env vars instead)
+.env
+.env.local
+.env.*.local
+
+# Supabase configuration (should be injected at build time on Netlify)
+admin-assets/js/supabase-config-client.js
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Node modules (if using any build tools)
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Build outputs
+dist/
+build/
+.cache/
+
+# OS files
+.DS_Store
+.Thumbs.db
+
+# Logs
+*.log
+
+# Testing
+coverage/

@@ -3,11 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1a5c7a" />
     <meta
       name="description"
-      content="Professional clinic and nursing-home website with mock healthcare services, facilities and specialist care information."
+      content="Asha Healthcare provides professional clinical consultation, nursing home care, and specialist services. Modern facilities and compassionate healthcare in India."
     />
-    <title>Asha Healthcare | Modern Care</title>
+    <meta name="keywords" content="healthcare, clinic, nursing home, doctors, consultation, surgery, gynecology, wellness" />
+    <meta name="author" content="Asha Healthcare" />
+    
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Asha Healthcare | Professional Healthcare Services" />
+    <meta property="og:description" content="Specialized healthcare consultation and nursing home care with experienced doctors and modern facilities." />
+    <meta property="og:url" content="https://ashahealthcare.in" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&h=630&fit=crop" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Asha Healthcare | Professional Healthcare Services" />
+    <meta name="twitter:description" content="Modern healthcare services, experienced doctors, compassionate care." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&h=630&fit=crop" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ashahealthcare.in" />
+    
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,8 +36,41 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
+    
+    <!-- Supabase client (for fetching published content) -->
+    <script async src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin-assets/js/supabase-config-client.js" defer></script>
+    
+    <!-- Site data and main rendering -->
     <script src="assets/js/site-data.js" defer></script>
     <script src="assets/js/main.js" defer></script>
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalBusiness",
+      "name": "Asha Healthcare",
+      "url": "https://ashahealthcare.in",
+      "description": "Professional healthcare clinic and nursing home services with experienced doctors and modern facilities.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "IN",
+        "addressLocality": "India"
+      },
+      "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&h=630&fit=crop",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "availableLanguage": ["en", "hi"]
+      },
+      "sameAs": [
+        "https://www.facebook.com/ashahealthcare",
+        "https://www.instagram.com/ashahealthcare",
+        "https://www.youtube.com/ashahealthcare"
+      ]
+    }
+    </script>
   </head>
   <body>
     <header class="site-header">

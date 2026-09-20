@@ -1,4 +1,54 @@
-const clinic = window.CLINIC_MOCK_DATA || {};
+  const clinic = { ...(window.CLINIC_MOCK_DATA || {}) };
+
+async function fetchPublishedContent() {
+  // Use Supabase REST endpoint (no SDK needed) so public pages can fetch with anon key
+  const url = window.SUPABASE_URL;
+  const key = window.SUPABASE_ANON_KEY;
+  if (!url || !key) return null;
+
+  const headers = {
+    'apikey': key,
+    'Authorization': 'Bearer ' + key,
+    'Accept': 'application/json'
+  };
+
+  try {
+    const [doctorsRes, servicesRes, facilitiesRes, galleryRes] = await Promise.all([
+      fetch(`${url}/rest/v1/doctors?select=*`, { headers }),
+      fetch(`${url}/rest/v1/services?select=*`, { headers }),
+      fetch(`${url}/rest/v1/facilities?select=*`, { headers }),
+      fetch(`${url}/rest/v1/gallery?select=*`, { headers })
+    ]);
+
+    if (!doctorsRes.ok || !servicesRes.ok || !facilitiesRes.ok || !galleryRes.ok) {
+      console.warn('Supabase REST fetch returned non-ok status');
+      return null;
+    }
+
+    const [doctors, services, facilities, gallery] = await Promise.all([
+      doctorsRes.json(), servicesRes.json(), facilitiesRes.json(), galleryRes.json()
+    ]);
+
+    // specialties could be a simple enum or a table; try to fetch, fallback to derived list
+    let specialties = [];
+    try {
+      const spRes = await fetch(`${url}/rest/v1/specialties?select=*`, { headers });
+      if (spRes.ok) specialties = await spRes.json();
+      if (Array.isArray(specialties)) specialties = specialties.map(s=>s.name||s);
+    } catch (e) { specialties = [] }
+
+    return {
+      doctors: doctors || [],
+      services: services || [],
+      facilities: facilities || [],
+      gallery: gallery || [],
+      specialties: specialties.length ? specialties : Array.from(new Set((doctors||[]).map(d=>d.specialty).filter(Boolean)))
+    };
+  } catch (err) {
+    console.warn('Failed to fetch published content from Supabase', err);
+    return null;
+  }
+}
 
 function renderCards(selector, items, cardType) {
   const container = document.querySelector(selector);
@@ -121,11 +171,18 @@ function setupContactForm() {
 }
 
 function initializeSite() {
-  renderCards('[data-doctors]', clinic.doctors, 'doctor');
-  renderCards('[data-services]', clinic.services, 'service');
-  renderCards('[data-facilities]', clinic.facilities, 'facility');
-  renderCards('[data-gallery]', clinic.gallery, 'gallery');
-  renderSpecialtyList();
+  // If Supabase config is present try to load published content first
+  (async () => {
+    const remote = await fetchPublishedContent();
+    const used = remote || clinic;
+    renderCards('[data-doctors]', used.doctors, 'doctor');
+    renderCards('[data-services]', used.services, 'service');
+    renderCards('[data-facilities]', used.facilities, 'facility');
+    renderCards('[data-gallery]', used.gallery, 'gallery');
+    // attach specialties to clinic for renderSpecialtyList
+    clinic.specialties = used.specialties || clinic.specialties;
+    renderSpecialtyList();
+  })();
   setupNavigation();
   setActiveNav();
   setCurrentYear();

@@ -10,7 +10,11 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="stylesheet" href="../admin-assets/css/admin.css" />
   </head>
   <body>
     <header class="site-header admin-header">
@@ -30,20 +34,114 @@
       </div>
     </header>
 
-    <main class="admin-placeholder">
-      <section class="section">
-        <div class="container narrow centered-content">
-          <p class="eyebrow">Protected admin dashboard</p>
-          <h1>Admin frontend shell coming soon.</h1>
-          <p>
-            This area is reserved for the future protected dashboard where administrators will manage
-            clinic information, doctor profiles, services, facilities, gallery content and settings.
-          </p>
-          <p class="placeholder-note">
-            Authentication, database storage, and server-side logic are intentionally not implemented yet.
-          </p>
-        </div>
-      </section>
+    <main id="adminLogin" class="admin-login">
+      <div class="container narrow centered-content">
+        <p class="eyebrow">Administrator sign in</p>
+        <h1>Admin login</h1>
+        <p class="muted">This admin dashboard is client-side only. Change default credentials after first login.</p>
+        <form id="loginForm" class="admin-login-form">
+          <label>
+            Username
+            <input name="username" type="text" required autocomplete="username" />
+          </label>
+          <label>
+            Password
+            <input name="password" type="password" required autocomplete="current-password" />
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="button button-primary">Sign in</button>
+          </div>
+          <!-- <p class="muted small" id="loginNotice">Default: <strong> </strong> / <strong>Admin@123</strong></p> -->
+        </form>
+      </div>
     </main>
+
+    <main id="adminApp" class="admin-app" hidden>
+      <div class="container admin-grid">
+        <aside class="admin-sidebar">
+          <h2>Admin</h2>
+          <nav class="admin-nav" aria-label="Admin sections">
+            <button data-section="doctors" class="active">Doctors</button>
+            <button data-section="services">Services</button>
+          </nav>
+          <p class="muted">Data saved locally in your browser (localStorage). No server required.</p>
+        </aside>
+
+        <section class="admin-main">
+          <div id="section-doctors" class="admin-section">
+            <div class="section-head">
+              <h3>Doctors</h3>
+              <button id="btnAddDoctor" class="button">Add doctor</button>
+            </div>
+
+            <div id="doctorsList" class="admin-list" aria-live="polite"></div>
+
+            <form id="doctorForm" class="admin-form" hidden>
+              <h4 id="doctorFormTitle">Add doctor</h4>
+              <label>
+                Name
+                <input type="text" name="name" required />
+              </label>
+              <label>
+                Specialty
+                <input type="text" name="specialty" />
+              </label>
+              <label>
+                Image URL
+                <input type="url" name="image" placeholder="https://..." />
+              </label>
+              <label>
+                Bio
+                <textarea name="bio" rows="4"></textarea>
+              </label>
+              <div class="form-actions">
+                <button type="submit" class="button button-primary">Save</button>
+                <button type="button" id="cancelDoctor" class="button">Cancel</button>
+              </div>
+            </form>
+          </div>
+
+          <div id="section-services" class="admin-section" hidden>
+            <div class="section-head">
+              <h3>Services</h3>
+              <button id="btnAddService" class="button">Add service</button>
+            </div>
+
+            <div id="servicesList" class="admin-list" aria-live="polite"></div>
+
+            <form id="serviceForm" class="admin-form" hidden>
+              <h4 id="serviceFormTitle">Add service</h4>
+              <label>
+                Title
+                <input type="text" name="title" required />
+              </label>
+              <label>
+                Category
+                <input type="text" name="category" />
+              </label>
+              <label>
+                Image URL
+                <input type="url" name="image" placeholder="https://..." />
+              </label>
+              <label>
+                Description
+                <textarea name="description" rows="4"></textarea>
+              </label>
+              <div class="form-actions">
+                <button type="submit" class="button button-primary">Save</button>
+                <button type="button" id="cancelService" class="button">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/supabase.min.js"></script>
+    <script src="../admin-assets/js/supabase-config-client.js"></script>
+    <script src="../admin-assets/js/supabase-client.js"></script>
+    <script src="../assets/js/site-data.js" defer></script>
+    <script src="../assets/js/admin-auth.js" defer></script>
+    <script src="../assets/js/admin.js" defer></script>
   </body>
 </html>
